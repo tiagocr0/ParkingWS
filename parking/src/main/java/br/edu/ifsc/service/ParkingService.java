@@ -8,15 +8,20 @@ import br.edu.ifsc.domain.ParkingLot;
 public class ParkingService  {
 	ParkingLot pl = new ParkingLot();
 	
-	public boolean isNormalSlotAvaliable() {
-		return pl.isNormalSlotAvailable();
+	public boolean isSlotAvailable() {
+		 if(pl.getFreeSlots() > 0) 
+			 return true;
+		 
+		 return false;
+	}
+
+	
+	public int occupySlot() {
+		return pl.useSlot();
 	}
 	
-	public boolean isSpecialSlotAvaliable() {
-		return pl.isAnySlotAvailable();
+	public int freeSlot(int slot) {
+		return pl.freeSlot(slot);
 	}
-	
-//	public int occupySlot(int slot) {
-//	}
 
 }

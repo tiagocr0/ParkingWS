@@ -32,44 +32,20 @@ public class ParkingLot {
 		}
 
 	}
-
-	public boolean isNormalSlotAvailable() {
-		for (int i = 0; i < leftPark.length; i++) {
-			if (isSpecialSlot(true, i) && leftPark[i]) {
-				return true;
-			}
+	
+	public int freeSlot(int slot) {
+		if(rightPark[slot]) {
+			this.switchUse(false, slot);
+			return this.getFreeSlots();
 		}
-		for (int i = 0; i < rightPark.length; i++) {
-			if (isSpecialSlot(false, i) && leftPark[i]) {
-				return true;
-			}
+		if(leftPark[slot]) {
+			this.switchUse(true, slot);
+			return this.getFreeSlots();
 		}
-
-		return false;
+		return -1;
+		
 	}
-
-	public boolean isAnySlotAvailable() {
-		for (boolean slot : leftPark) {
-			if (slot)
-				return true;
-		}
-		for (boolean slot : rightPark) {
-			if (slot)
-				return true;
-		}
-		return false;
-	}
-
-	private boolean isSpecialSlot(boolean isLeft, int slot) {
-		if (isLeft) {
-			if (slot == 3 || slot == 4)
-				return true;
-		} else {
-			if (slot == 26 || slot == 27)
-				return true;
-		}
-		return false;
-	}
+	
 
 	private int getLeftFreeSlot() {
 		for (int i = 0; i < leftPark.length; i++) {
