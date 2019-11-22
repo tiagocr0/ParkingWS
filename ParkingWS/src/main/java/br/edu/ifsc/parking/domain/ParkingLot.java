@@ -1,98 +1,67 @@
 package br.edu.ifsc.parking.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingLot {
 
-	private boolean[] leftPark = new boolean[64];
-	private boolean[] rightPark = new boolean[44];
+	private Vagas[] parking = new Vagas[108];
 
 	public ParkingLot() {
-
+		for (int i = 0; i < parking.length; i++) {
+			parking[i] = new Vagas(i, false);
+		}
 	}
 
-	public void switchUse(boolean isLeft, int slot) {
-		if (isLeft)
-			leftPark[slot] = !leftPark[slot];
-		else
-			rightPark[slot] = !rightPark[slot];
+	public void switchUse(int slot) {
+			parking[slot].setSituacao(!parking[slot].getSituacao());
 	}
 
 	public int useSlot() {
-		int slot = this.getLeftFreeSlot();
+		int slot = this.getFreeSlot();
 		
 		if (slot != -1) {
-			this.switchUse(true, slot);
-			return this.getFreeSlots();
-		} else {
-			slot = this.getRightFreeSlot();
-			if (slot != -1) {
-				this.switchUse(false, slot);
-				return this.getFreeSlots();
-			}
-			return -1;
+			this.switchUse(slot);
+			return 0;
 		}
+		return -1;
 
 	}
 	
-	public int freeSlot(int slot) {
-		if(rightPark[slot]) {
-			this.switchUse(false, slot);
-			return this.getFreeSlots();
+	public boolean freeSlot(int slot) {
+		if(parking[slot].getSituacao()) {
+			this.switchUse(slot);
+			return true;
 		}
-		if(leftPark[slot]) {
-			this.switchUse(true, slot);
-			return this.getFreeSlots();
-		}
-		return -1;
+		return false;
 		
 	}
 	
 
-	private int getLeftFreeSlot() {
-		for (int i = 0; i < leftPark.length; i++) {
-			if (leftPark[i] == false)
+	private int getFreeSlot() {
+		for (int i = 0; i < parking.length; i++) {
+			if (!parking[i].getSituacao())
 				return i;
 		}
 		return -1;
 	}
-
-	private int getRightFreeSlot() {
-		for (int i = 0; i < rightPark.length; i++) {
-			if (rightPark[i] == false)
-				return i;
-		}
-		return -1;
-	}
-	
-	
-	public int getFreeSlots() {
-		int count = 0;
 		
-		for (int i = 0; i < leftPark.length; i++) {
-			if(leftPark[i])
-				count++;
-		}
-		for (int i = 0; i < rightPark.length; i++) {
-			if(rightPark[i])
-				count++;
-		}
+	public List<Vagas> getFreeSlots() {
+		List<Vagas> vagas = new ArrayList<>();
 		
-		return count;
+		for (int i = 0; i < parking.length; i++) {
+			if(!parking[i].getSituacao())
+				vagas.add(parking[i]);
+		}		
+		return vagas;
 	}
 
-	public boolean[] getLeftPark() {
-		return leftPark;
+	public Vagas[] getLeftPark() {
+		return parking;
 	}
 
-	public void setLeftPark(boolean[] leftPark) {
-		this.leftPark = leftPark;
-	}
-
-	public boolean[] getRightPark() {
-		return rightPark;
-	}
-
-	public void setRightPark(boolean[] rightPark) {
-		this.rightPark = rightPark;
+	public void setLeftPark(Vagas[] leftPark) {
+		this.parking = leftPark;
 	}
 
 }

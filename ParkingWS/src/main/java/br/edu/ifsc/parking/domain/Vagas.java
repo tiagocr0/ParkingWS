@@ -9,6 +9,12 @@ public class Vagas {
 	
 	@JsonProperty(value="Ocupada", required = false)
 	public Boolean situacao;
+	
+	public Vagas(Integer numero, Boolean situacao) {
+		super();
+		this.numero = numero;
+		this.situacao = situacao;
+	}
 
 	public Integer getNumero() {
 		return numero;
