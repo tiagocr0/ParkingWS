@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsc.parking.domain.DashboardParking;
 import br.edu.ifsc.parking.domain.Vagas;
 import br.edu.ifsc.parking.service.ParkingService;
 
@@ -42,6 +43,16 @@ public class ParkingResource {
 		boolean result = parkingService.freeSlot(slot);
 		
 		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ResponseEntity<DashboardParking> dashboard(){
+		int qtd = parkingService.freeSlot();
+		int qtdTotal = parkingService.getSlots().size();
+		DashboardParking dashboardParking = new DashboardParking();
+		dashboardParking.setFreeParkingSpace(qtd);
+		dashboardParking.setTotalParkingSpaces(qtdTotal);
+		return new ResponseEntity<DashboardParking>(dashboardParking, HttpStatus.OK);
 	}
 	
 }

@@ -16,6 +16,10 @@ public class ParkingService  {
 		return pl.freeSlot(slot);
 	}
 	
+	public int freeSlot() {
+		return pl.freeSlot();
+	}
+	
 	public List<Vagas> getSlots(){
 		return this.pl.getFreeSlots();
 	}

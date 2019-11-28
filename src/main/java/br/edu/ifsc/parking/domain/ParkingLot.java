@@ -37,7 +37,15 @@ public class ParkingLot {
 		
 	}
 	
-
+	public int freeSlot() {
+		int total = 0;
+		for(Vagas vagas : parking)
+			if(vagas.getSituacao()) {
+				total += 1;
+			}
+		return total;
+	}
+	
 	private int getFreeSlot() {
 		for (int i = 0; i < parking.length; i++) {
 			if (!parking[i].getSituacao())
