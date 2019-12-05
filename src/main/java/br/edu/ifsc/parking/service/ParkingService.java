@@ -12,11 +12,17 @@ public class ParkingService  {
 		return pl.useSlot();
 	}
 	
+	public boolean occupySlot(int slot) {
+		if(pl.useSlot(slot))
+			return true;
+		return false;
+	}
+	
 	public boolean freeSlot(int slot) {
 		return pl.freeSlot(slot);
 	}
 	
-	public int freeSlot() {
+	public int freeSlots() {
 		return pl.freeSlot();
 	}
 	

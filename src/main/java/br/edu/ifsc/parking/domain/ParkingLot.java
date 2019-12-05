@@ -27,6 +27,16 @@ public class ParkingLot {
 		return -1;
 
 	}
+
+	public boolean useSlot(int slot){
+		if(isFree(slot)){
+			parking[slot].setSituacao(true);
+			return true;
+		}
+		return false;
+	}
+
+
 	
 	public boolean freeSlot(int slot) {
 		if(parking[slot].getSituacao()) {
@@ -62,6 +72,14 @@ public class ParkingLot {
 				vagas.add(parking[i]);
 		}		
 		return vagas;
+	}
+	
+	private boolean isFree(int slot) {
+		if(!parking[slot].getSituacao()){
+			return true;
+		}
+		return false;
+
 	}
 
 	public Vagas[] getLeftPark() {
