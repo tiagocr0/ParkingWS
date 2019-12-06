@@ -22,14 +22,14 @@ import br.edu.ifsc.parking.service.ParkingService;
 public class ParkingResource {
 
     private ParkingService parkingService = new ParkingService();
-
+    @CrossOrigin
     @RequestMapping(value = "/slots", method = RequestMethod.GET)
     public ResponseEntity<List<Vagas>> listAvailableSlots() {
         List<Vagas> vagas = new ArrayList<Vagas>();
         vagas = parkingService.getSlots();
         return new ResponseEntity<List<Vagas>>(vagas, HttpStatus.OK);
     }
-
+    @CrossOrigin
     @RequestMapping(value = "/occupy", method = RequestMethod.GET)
     public ResponseEntity<Integer> occupySlot() {
         int slot = parkingService.occupySlot();
@@ -38,19 +38,20 @@ public class ParkingResource {
         return new ResponseEntity<Integer>(slot, HttpStatus.UNAUTHORIZED);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/occupy/{slot}", method = RequestMethod.POST)
     public ResponseEntity<Boolean> occupySlot(@PathVariable int slot) {
         boolean result = parkingService.occupySlot(slot);
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
-
+    @CrossOrigin
     @RequestMapping(value = "/freeSlot/{slot}", method = RequestMethod.POST)
     public ResponseEntity<Boolean> freeSlot(@PathVariable int slot) {
         boolean result = parkingService.freeSlot(slot);
 
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
-
+    @CrossOrigin
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ResponseEntity<DashboardParking> dashboard() {
         int qtd = parkingService.freeSlots();
