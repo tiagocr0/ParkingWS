@@ -25,17 +25,27 @@ public class ParkingResource {
     @CrossOrigin
     @RequestMapping(value = "/slots", method = RequestMethod.GET)
     public ResponseEntity<List<Vagas>> listAvailableSlots() {
-        List<Vagas> vagas = new ArrayList<Vagas>();
+        List<Vagas> vagas;
         vagas = parkingService.getSlots();
-        return new ResponseEntity<List<Vagas>>(vagas, HttpStatus.OK);
+        return new ResponseEntity<>(vagas, HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/allSlots", method = RequestMethod.GET)
+    public ResponseEntity<Vagas[]> listAllSlots() {
+        Vagas[] vagas;
+        vagas = parkingService.getAllSlots();
+        return new ResponseEntity<>(vagas, HttpStatus.OK);
+    }
+
+
     @CrossOrigin
     @RequestMapping(value = "/occupy", method = RequestMethod.GET)
     public ResponseEntity<Integer> occupySlot() {
         int slot = parkingService.occupySlot();
         if (slot > 0)
             return new ResponseEntity<>(slot, HttpStatus.OK);
-        return new ResponseEntity<Integer>(slot, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(slot, HttpStatus.UNAUTHORIZED);
     }
 
     @CrossOrigin
@@ -43,7 +53,7 @@ public class ParkingResource {
     public ResponseEntity<Boolean> occupySlot(@PathVariable int slot) {
         boolean result = parkingService.occupySlot(slot);
         if(result)
-            return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         return new ResponseEntity<>(result,HttpStatus.SERVICE_UNAVAILABLE);
     }
     @CrossOrigin
@@ -51,9 +61,13 @@ public class ParkingResource {
     public ResponseEntity<Boolean> freeSlot(@PathVariable int slot) {
         boolean result = parkingService.freeSlot(slot);
         if(result)
-            return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         return new ResponseEntity<>(result,HttpStatus.SERVICE_UNAVAILABLE);
     }
+
+
+
+
     @CrossOrigin
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ResponseEntity<DashboardParking> dashboard() {
@@ -62,7 +76,7 @@ public class ParkingResource {
         DashboardParking dashboardParking = new DashboardParking();
         dashboardParking.setFreeParkingSpace(qtd);
         dashboardParking.setTotalParkingSpaces(qtdTotal);
-        return new ResponseEntity<DashboardParking>(dashboardParking, HttpStatus.OK);
+        return new ResponseEntity<>(dashboardParking, HttpStatus.OK);
     }
 
 }

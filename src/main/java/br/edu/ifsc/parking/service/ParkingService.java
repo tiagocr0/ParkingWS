@@ -25,6 +25,10 @@ public class ParkingService  {
 	public int freeSlots() {
 		return pl.freeSlot();
 	}
+
+	public Vagas[] getAllSlots(){
+		return pl.getParking();
+	}
 	
 	public List<Vagas> getSlots(){
 		return this.pl.getFreeSlots();

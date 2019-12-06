@@ -82,12 +82,7 @@ public class ParkingLot {
 
 	}
 
-	public Vagas[] getLeftPark() {
+	public Vagas[] getParking() {
 		return parking;
 	}
-
-	public void setLeftPark(Vagas[] leftPark) {
-		this.parking = leftPark;
-	}
-
 }
