@@ -39,17 +39,20 @@ public class ParkingResource {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/occupy/{slot}", method = RequestMethod.POST)
+    @RequestMapping(value = "/occupySlot/{slot}", method = RequestMethod.POST)
     public ResponseEntity<Boolean> occupySlot(@PathVariable int slot) {
         boolean result = parkingService.occupySlot(slot);
-        return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+        if(result)
+            return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result,HttpStatus.SERVICE_UNAVAILABLE);
     }
     @CrossOrigin
     @RequestMapping(value = "/freeSlot/{slot}", method = RequestMethod.POST)
     public ResponseEntity<Boolean> freeSlot(@PathVariable int slot) {
         boolean result = parkingService.freeSlot(slot);
-
-        return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+        if(result)
+            return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result,HttpStatus.SERVICE_UNAVAILABLE);
     }
     @CrossOrigin
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
